@@ -16,7 +16,7 @@ function SearchForm() {
                 </fieldset>
                 <fieldset className="search-form__checkbox">
                         <input className="search-form__checkbox-input" type="checkbox" id="short-films" />
-                        <label className="search-form__checkbox-text" for="short-films">Короткометражки</label>
+                        <label className="search-form__checkbox-text" htmlFor="short-films">Короткометражки</label>
                 </fieldset>
             </form>
         </section>
