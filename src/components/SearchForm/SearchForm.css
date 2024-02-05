@@ -35,6 +35,11 @@
 .search-form__search-button {
     padding: 0px;
     line-height: 0;
+    cursor: pointer;
+}
+
+.search-form__search-button:hover {
+    opacity: 0.8;
 }
 
 .search-form__checkbox {
@@ -96,6 +101,7 @@
 
     .search-form__search-icon {
         display: block;
+        padding-left: 6px;
     }
 
     .search-form__input {

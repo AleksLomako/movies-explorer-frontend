@@ -19,6 +19,8 @@ function Login() {
                     type="email"
                     id="login-email"
                     placeholder="E-mail"
+                    minLength="2"
+                    maxLength="30"
                     errorMessage="почта от 3 до 30 символов"
                 />
                 <FormInput
@@ -26,6 +28,8 @@ function Login() {
                     type="password"
                     id="login-password"
                     placeholder="Пароль"
+                    minLength="2"
+                    maxLength="30"
                     errorMessage="пароль от 3 до 30 символов"
                 />
             </FormAuth>

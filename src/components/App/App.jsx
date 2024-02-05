@@ -15,6 +15,7 @@ import NotFoundPage from './../NotFoundPage/NotFoundPage';
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true); // состояние авторизации пользователя
+  const [iseditProfile, setIsEditProfile] = useState(true); //редактирование информации профиля
 
   return (
     <>
@@ -46,7 +47,7 @@ function App() {
         <Route path="/profile" element={
           <>
             <Header isLoggedIn={isLoggedIn} />
-            <Profile />
+            <Profile isEditUser={iseditProfile}/>
           </>
         } 
         />

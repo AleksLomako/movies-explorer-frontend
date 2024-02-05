@@ -40,6 +40,10 @@
     margin-top: 40px;
 }
 
+.about-me__link:hover {
+    opacity: 0.7;
+}
+
 /* 604px */
 @media screen and (min-width: 768px) {
     .about-me {
@@ -71,7 +75,7 @@
     }
 
     .about-me__link {
-        margin-top: 70px;
+        margin-top: 87px;
     }
 }
 

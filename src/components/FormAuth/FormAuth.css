@@ -47,6 +47,10 @@
     cursor: pointer;
 }
 
+.auth__submit-button:hover {
+    opacity: 0.8;
+}
+
 .auth__submit-button_register {
     border-radius: 3px;
     background: #FF6838;
@@ -61,6 +65,10 @@
     margin: 159px auto 0px;
     width: 100%;
     cursor: pointer;
+}
+
+.auth__submit-button_register:hover {
+    opacity: 0.8;
 }
 
 .auth__text {
@@ -80,6 +88,10 @@
     color: #FF6838;
     text-decoration: none;
     cursor: pointer;
+}
+
+.auth__link:hover {
+    opacity: 0.7;
 }
 
 @media screen and (min-width: 768px) {
@@ -102,6 +114,7 @@
 
     .auth__submit-button_register{
         margin-top: 71px;
+        font-size: 14px;
     }
 
     .auth__text {

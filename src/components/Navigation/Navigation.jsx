@@ -21,14 +21,14 @@ function Navigation({ isBlueTheme }) {
                     <ul className="navigation__links">
                         {isBurgerMenuOpened && (
                             <li>
-                                <NavLink className={`navigation__link ${isBlueTheme ? 'navigation__link_blue-theme' : ''}`} to="/">Главная</NavLink>
+                                <NavLink className={({isActive}) => `navigation__link ${isActive? "navigation__link_active" : ""} ${isBlueTheme ? 'navigation__link_blue-theme' : ''}`} to="/">Главная</NavLink>
                             </li>
                         )}
                         <li>
-                            <NavLink className={`navigation__link ${isBlueTheme ? 'navigation__link_blue-theme' : ''}`} to="/movies">Фильмы</NavLink>
+                            <NavLink className={({isActive}) => `navigation__link ${isActive? "navigation__link_active" : ""} ${isBlueTheme ? 'navigation__link_blue-theme' : ''}`} to="/movies">Фильмы</NavLink>
                         </li>
                         <li>
-                            <NavLink className={`navigation__link ${isBlueTheme ? 'navigation__link_blue-theme' : ''}`} to="/saved-movies">Сохранённые фильмы</NavLink>
+                            <NavLink className={({isActive}) => `navigation__link ${isActive? "navigation__link_active" : ""} ${isBlueTheme ? 'navigation__link_blue-theme' : ''}`} to="/saved-movies">Сохранённые фильмы</NavLink>
                         </li>
                     </ul>
                     <Link className="navigation__profile" to="/profile">
