@@ -12,28 +12,33 @@ function Register() {
                 answer="Уже зарегистрированы?"
                 route="/signin"
                 link="Войти"
-                className="_register"
             >
                 <FormInput
                     label="Имя"
                     type="text"
                     id="register-name"
+                    minLength="2"
+                    maxLength="30"
                     placeholder="Имя"
-                    errorMessage="Имя от 3 до 30 символов"
+                    errorMessage="Имя от 2 до 30 символов"
                 />
                 <FormInput
                     label="E-mail"
                     type="email"
                     id="register-email"
                     placeholder="E-mail"
-                    errorMessage="почта от 3 до 30 символов"
+                    minLength="2"
+                    maxLength="30"
+                    errorMessage="почта от 2 до 30 символов"
                 />
                 <FormInput
                     label="Пароль"
                     type="password"
                     id="register-password"
                     placeholder="Пароль"
-                    errorMessage="пароль от 3 до 30 символов"
+                    minLength="2"
+                    maxLength="30"
+                    errorMessage="пароль от 2 до 30 символов"
                 />
             </FormAuth>
         </div>

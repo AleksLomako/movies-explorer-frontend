@@ -12,7 +12,6 @@ function Login() {
                 answer="Ещё не зарегистрированы?"
                 route="/signup"
                 link="Регистрация"
-                className=""
             >
                 <FormInput
                     label="E-mail"
@@ -21,7 +20,7 @@ function Login() {
                     placeholder="E-mail"
                     minLength="2"
                     maxLength="30"
-                    errorMessage="почта от 3 до 30 символов"
+                    errorMessage="почта от 2 до 30 символов"
                 />
                 <FormInput
                     label="Пароль"
@@ -30,7 +29,7 @@ function Login() {
                     placeholder="Пароль"
                     minLength="2"
                     maxLength="30"
-                    errorMessage="пароль от 3 до 30 символов"
+                    errorMessage="пароль от 2 до 30 символов"
                 />
             </FormAuth>
         </div>

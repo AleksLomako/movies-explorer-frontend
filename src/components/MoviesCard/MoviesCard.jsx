@@ -28,6 +28,7 @@ function MoviesCard({ movieName, movieDuration, movieImage, movieId, isSaved }) 
             {location.pathname === '/movies' && (
                 <button
                     className={`movie-card__button movie-card__button_type${movieSaved ? '_saved' : '_unsaved'}`}
+                    type="button"
                     onClick={handleSaveMovie}
                 />
             )}
@@ -35,6 +36,7 @@ function MoviesCard({ movieName, movieDuration, movieImage, movieId, isSaved }) 
             {location.pathname === '/saved-movies' && (
                 <button
                     className={`movie-card__button movie-card__button_type_delete`}
+                    type="button"
                     onClick={handleDeleteMovie}
                 />
             )}

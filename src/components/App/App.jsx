@@ -47,7 +47,7 @@ function App() {
         <Route path="/profile" element={
           <>
             <Header isLoggedIn={isLoggedIn} />
-            <Profile isEditUser={iseditProfile}/>
+            <Profile isEditUser={!iseditProfile}/>
           </>
         } 
         />

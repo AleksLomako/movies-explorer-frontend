@@ -7,6 +7,13 @@
 .auth__form {
     display: flex;
     flex-direction: column;
+    height: 468px;
+    justify-content: space-between;
+}
+
+.auth__inputs {
+    display: flex;
+    flex-direction: column;
     gap: 20px;
 }
 
@@ -21,6 +28,12 @@
 .auth__logo {
     width: 38px;
     height: 38px;
+    background: url('../../images/logo-auth.svg');
+    cursor: pointer;
+}
+
+.auth__logo:hover{
+    opacity: 0.7;
 }
 
 .auth__title {
@@ -42,32 +55,12 @@
     padding: 15px;
     text-align: center;
     max-width: 396px;
-    margin: 247px auto 0px;
+    margin: 0 auto;
     width: 100%;
     cursor: pointer;
 }
 
 .auth__submit-button:hover {
-    opacity: 0.8;
-}
-
-.auth__submit-button_register {
-    border-radius: 3px;
-    background: #FF6838;
-    border: 0;
-    color: #FFF;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 15px;
-    padding: 15px;
-    text-align: center;
-    max-width: 396px;
-    margin: 159px auto 0px;
-    width: 100%;
-    cursor: pointer;
-}
-
-.auth__submit-button_register:hover {
     opacity: 0.8;
 }
 
@@ -99,6 +92,10 @@
         padding: 232px 0px 0px;
     }
 
+    .auth__form {
+        height: 380px;
+    }
+
     .auth__header {
         gap: 40px;
         padding-bottom: 40px;
@@ -106,7 +103,6 @@
     }
 
     .auth__submit-button {
-        margin-top: 159px;
         font-size: 14px;
         line-height: 17px;
         padding-top: 13px;

@@ -6,7 +6,7 @@ import MovieImage from '../../images/movie-image.png';
 
 function MoviesCardList() {
     return (
-        <section className="movies-card-list">
+        <div className="movies-card-list">
             <ul className="movies-card-list__items">
                 <MoviesCard
                     movieName="33 слова о дизайне"
@@ -54,7 +54,7 @@ function MoviesCardList() {
                     movieImage={MovieImage}
                 />
             </ul>
-        </section>
+        </div>
     );
 }
 

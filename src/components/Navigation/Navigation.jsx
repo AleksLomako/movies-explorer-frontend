@@ -14,21 +14,21 @@ function Navigation({ isBlueTheme }) {
 
     return (
         <>
-            <nav className={`navigation ${isBurgerMenuOpened ? 'navigation__visible' : ''}`}
-            onClick={isBurgerMenuOpened ? handleClickBurgerMenu : undefined}
+            <nav className={`navigation ${isBurgerMenuOpened ? 'navigation_visible' : ''}`}
+                onClick={isBurgerMenuOpened ? handleClickBurgerMenu : undefined}
             >
                 <div className={`navigation__menu ${isBlueTheme ? 'navigation__menu_blue-theme' : ''}`}>
                     <ul className="navigation__links">
                         {isBurgerMenuOpened && (
                             <li>
-                                <NavLink className={({isActive}) => `navigation__link ${isActive? "navigation__link_active" : ""} ${isBlueTheme ? 'navigation__link_blue-theme' : ''}`} to="/">Главная</NavLink>
+                                <NavLink className={({ isActive }) => `navigation__link ${isActive ? "navigation__link_active" : ""} ${isBlueTheme ? 'navigation__link_blue-theme' : ''}`} to="/">Главная</NavLink>
                             </li>
                         )}
                         <li>
-                            <NavLink className={({isActive}) => `navigation__link ${isActive? "navigation__link_active" : ""} ${isBlueTheme ? 'navigation__link_blue-theme' : ''}`} to="/movies">Фильмы</NavLink>
+                            <NavLink className={({ isActive }) => `navigation__link ${isActive ? "navigation__link_active" : ""} ${isBlueTheme ? 'navigation__link_blue-theme' : ''}`} to="/movies">Фильмы</NavLink>
                         </li>
                         <li>
-                            <NavLink className={({isActive}) => `navigation__link ${isActive? "navigation__link_active" : ""} ${isBlueTheme ? 'navigation__link_blue-theme' : ''}`} to="/saved-movies">Сохранённые фильмы</NavLink>
+                            <NavLink className={({ isActive }) => `navigation__link ${isActive ? "navigation__link_active" : ""} ${isBlueTheme ? 'navigation__link_blue-theme' : ''}`} to="/saved-movies">Сохранённые фильмы</NavLink>
                         </li>
                     </ul>
                     <Link className="navigation__profile" to="/profile">
@@ -38,8 +38,9 @@ function Navigation({ isBlueTheme }) {
                 </div>
             </nav>
             <button
-                className={`navigation__menu-button ${isBurgerMenuOpened ? 'navigation__menu-button_closed' : ''}`}
-                onClick={handleClickBurgerMenu}>
+                className={`header__menu-button ${isBurgerMenuOpened ? 'header__menu-button_closed' : ''}`}
+                onClick={handleClickBurgerMenu}
+                type="button">
             </button>
         </>
     );

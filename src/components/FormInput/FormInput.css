@@ -22,7 +22,7 @@
 }
 
 .form-input__input:focus-visible {
-    outline: 0;
+    outline: green groove thin;
 }
 
 .form-input__error {

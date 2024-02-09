@@ -8,7 +8,7 @@
     visibility: hidden;
 }
 
-.navigation__visible {
+.navigation_visible {
     visibility: visible;
 }
 
@@ -23,6 +23,7 @@
     box-sizing: border-box;
     min-width: 320px;
     padding: 144px 10px 48px;
+    max-width: 520px;
 }
 
 .navigation__links {
@@ -80,7 +81,7 @@
     opacity: 0.8;
 }
 
-.navigation__menu-button {
+.header__menu-button {
     background: url(../../images/burger-menu-icon.svg);
     background-position: center;
     width: 40px;
@@ -93,11 +94,11 @@
     z-index: 5;
 }
 
-.navigation__menu-button:hover {
+.header__menu-button:hover {
     opacity: 0.8;
 }
 
-.navigation__menu-button_closed {
+.header__menu-button_closed {
     background: url(../../images/burger-menu-close-icon.svg);
     width: 22px;
     height: 22px;
@@ -108,7 +109,6 @@
 
 @media screen and (min-width: 768px) {
     .navigation__menu {
-        width: 520px;
         padding: 159px 90px 92px;
     }
 
@@ -116,17 +116,19 @@
         gap: 28px;
     }
 
-    .navigation__menu-button {
-        right: 32px;
+    .header__menu-button {
+        right: 30px;
+        width: 44px;
+        height: 44px;
     }
 
-    .navigation__menu-button_closed {
-        top: 27px;
-        right: 26px;
+    .header__menu-button_closed {
+        top: 16px;
+        right: 16px;
     }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 769px) {
     .navigation {
         position: relative;
         margin-left: 44px;
@@ -143,6 +145,7 @@
         padding: 0px;
         flex-direction: row;
         flex-grow: 1;
+        max-width: 100%;
     }
 
     .navigation__menu_blue-theme {
@@ -177,7 +180,7 @@
         background: #2BE080;
     }
 
-    .navigation__menu-button {
+    .header__menu-button {
         visibility: hidden;
     }
 }

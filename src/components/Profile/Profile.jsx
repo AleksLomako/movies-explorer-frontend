@@ -1,7 +1,15 @@
 import React from "react";
 import './Profile.css';
+import { useNavigate } from 'react-router-dom';
 
 function Profile({ isEditUser }) {
+
+    const navigate = useNavigate();
+
+    function handleLogOutProfile() {
+        navigate('/');
+    }
+
     return (
         <>
             <main className="profile">
@@ -15,6 +23,9 @@ function Profile({ isEditUser }) {
                                 type="text"
                                 placeholder="Имя"
                                 id="user-name"
+                                minLength="2"
+                                maxLength="30"
+                                required
                             />
                         </div>
                         <div className="profile__inputs-item">
@@ -24,6 +35,9 @@ function Profile({ isEditUser }) {
                                 type="email"
                                 placeholder="E-mail"
                                 id="user-email"
+                                minLength="2"
+                                maxLength="30"
+                                required
                             />
                         </div>
                     </fieldset>
@@ -36,7 +50,7 @@ function Profile({ isEditUser }) {
                             :
                             <>
                                 <button className="profile__button profile__button_edit" type="button">Редактировать</button>
-                                <button className="profile__button profile__button_exit" type="button">Выйти из аккаунта</button>
+                                <button className="profile__button profile__button_exit" type="button" onClick={handleLogOutProfile}>Выйти из аккаунта</button>
                             </>
                         }
                     </fieldset>

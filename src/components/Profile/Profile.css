@@ -59,7 +59,8 @@
 }
 
 .profile__input:focus-visible {
-    outline: 0;
+    outline: green groove thin;
+    outline-offset: 2px;
 }
 
 .profile__buttons {

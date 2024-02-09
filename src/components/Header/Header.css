@@ -16,6 +16,10 @@
     height: 38px;
 }
 
+.header__logo:hover{
+    opacity: 0.7;
+}
+
 .header__sign-links {
     display: flex;
     gap: 14px;
