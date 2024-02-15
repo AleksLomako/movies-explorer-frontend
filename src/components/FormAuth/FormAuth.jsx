@@ -2,7 +2,7 @@ import { React } from "react";
 import './FormAuth.css';
 import { Link } from 'react-router-dom';
 
-function FormAuth({ title, children, button, answer, route, link }) {
+function FormAuth({ title, children, button, answer, route, link, onSubmit, name, disabled, className }) {
 
     return (
         <section className="auth">
@@ -10,11 +10,14 @@ function FormAuth({ title, children, button, answer, route, link }) {
                 <Link to="/" className="auth__logo" />
                 <h1 className="auth__title">{title}</h1>
             </header>
-            <form className="auth__form">
+            <form className="auth__form"
+                onSubmit={onSubmit}
+                name={name}
+                noValidate>
                 <div className="auth__inputs">
                     {children}
                 </div>
-                <button className="auth__submit-button" type="submit">{button}</button>
+                <button className={className} type="submit" disabled={disabled}>{button}</button>
             </form>
             <p className="auth__text">{answer}
                 <Link className="auth__link" to={route}>{link}</Link>

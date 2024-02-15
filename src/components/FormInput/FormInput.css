@@ -26,7 +26,6 @@
 }
 
 .form-input__error {
-    display: none;
     color: #EE3465;
     font-size: 10px;
     font-weight: 400;

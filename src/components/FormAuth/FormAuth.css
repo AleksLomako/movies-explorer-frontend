@@ -64,6 +64,12 @@
     opacity: 0.8;
 }
 
+.auth__submit-button_disabled {
+    background: #F8F8F8;
+    color: #000000;
+    cursor: default;
+}
+
 .auth__text {
     color: #A0A0A0;
     font-size: 12px;
