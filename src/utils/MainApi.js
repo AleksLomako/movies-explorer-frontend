@@ -5,17 +5,15 @@ class MainApi {
     }
 
     // проверка ответа
-    _checkResponse(res) {
-        if (res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
+    async _checkResponse(res) {
+        const result = await res.json();
+        return res.ok ? result : Promise.reject(result.message);
     }
     // запрос
-    _request(url, options) {
-        return fetch(url, options).then(this._checkResponse);
-    }
-    // токен в заголовок
+    // _request(url, options) {
+    //     return fetch(url, options).then(this._checkResponse);
+    // }
+    // получение токена из заголовока
     setJwt() {
         this._headers.Authorization = `Bearer ${localStorage.getItem('jwt')}`;
     }
@@ -23,7 +21,7 @@ class MainApi {
 
     // регистрация
     register(name, email, password) {
-        return this._request(`${this._url}/signup`, {
+        return fetch(`${this._url}/signup`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
@@ -32,11 +30,12 @@ class MainApi {
                 password
             })
         })
+        .then(res => this._checkResponse(res));
     }
 
     // авторизация
     authorize(email, password) {
-        return this._request(`${this._url}/signin`, {
+        return fetch(`${this._url}/signin`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
@@ -44,34 +43,34 @@ class MainApi {
                 password
             })
         })
+        .then(res => this._checkResponse(res));
     }
 
     // проверка токена
     checkToken(token) {
-        return this._request(`${this._url}/users/me`, {
+        return fetch(`${this._url}/users/me`, {
             method: 'GET',
             headers: {
                 headers: this._headers,
                 Authorization: `Bearer ${token}`
             }
         })
+        .then(res => this._checkResponse(res));
     }
 
     // получение данных пользователя
     getUserInfo() {
         this.setJwt()
-        return this._request(`${this._url}/users/me`, {
+        return fetch(`${this._url}/users/me`, {
             headers: this._headers
         })
-            .then((result) => {
-                return result
-            })
+        .then(res => this._checkResponse(res));
     }
 
     // обновление данных пользователя
     updateUserInfo(name, email) {
         this.setJwt()
-        return this._request(`${this._url}/users/me`, {
+        return fetch(`${this._url}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
@@ -79,9 +78,7 @@ class MainApi {
                 email
             })
         })
-            .then((result) => {
-                return result
-            })
+        .then(res => this._checkResponse(res));
     }
 
     // MOVIES
@@ -136,7 +133,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-    baseUrl: 'https://api.alekslomako.movies.nomoredomainsmonster.ru/',
+    baseUrl: 'https://api.alekslomako.movies.nomoredomainsmonster.ru',
     headers: {
         'Content-Type': 'application/json'
     }

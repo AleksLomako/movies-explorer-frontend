@@ -2,7 +2,7 @@ import { React } from "react";
 import './FormAuth.css';
 import { Link } from 'react-router-dom';
 
-function FormAuth({ title, children, button, answer, route, link, onSubmit, name, disabled, className }) {
+function FormAuth({ title, children, button, answer, route, link, onSubmit, name, disabled, className, errorMessage }) {
 
     return (
         <section className="auth">
@@ -17,6 +17,7 @@ function FormAuth({ title, children, button, answer, route, link, onSubmit, name
                 <div className="auth__inputs">
                     {children}
                 </div>
+                <span className={`auth__error ${errorMessage ? 'auth__error_visible' : ''}`}>{errorMessage}</span>
                 <button className={className} type="submit" disabled={disabled}>{button}</button>
             </form>
             <p className="auth__text">{answer}

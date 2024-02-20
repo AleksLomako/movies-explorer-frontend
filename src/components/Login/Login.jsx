@@ -3,7 +3,7 @@ import FormAuth from "../FormAuth/FormAuth";
 import FormInput from "../FormInput/FormInput";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
-function Login({ onLogin }) {
+function Login({ onLogin, errorMessage }) {
 
     const { values, errors, isValid, handleChangeInputs, resetFormInputs } = useFormWithValidation();
 
@@ -29,6 +29,7 @@ function Login({ onLogin }) {
                 onSubmit={handleSubmitLogin}
                 className={`auth__submit-button ${!isValid && 'auth__submit-button_disabled'}`}
                 disabled={!isValid}
+                errorMessage={errorMessage}
             >
                 <FormInput
                     label="E-mail"

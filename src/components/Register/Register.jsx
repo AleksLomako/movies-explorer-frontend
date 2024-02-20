@@ -3,7 +3,7 @@ import FormAuth from "../FormAuth/FormAuth";
 import FormInput from "../FormInput/FormInput";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
-function Register({ onRegister }) {
+function Register({ onRegister, errorMessage }) {
 
     const { values, errors, isValid, handleChangeInputs, resetFormInputs } = useFormWithValidation();
 
@@ -30,6 +30,7 @@ function Register({ onRegister }) {
                 onSubmit={handleSubmitRegistration}
                 className={`auth__submit-button ${!isValid && 'auth__submit-button_disabled'}`}
                 disabled={!isValid}
+                errorMessage={errorMessage}
             >
                 <FormInput
                     label="Имя"

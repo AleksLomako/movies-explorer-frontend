@@ -35,6 +35,10 @@ fieldset {
     border: 0px;
 }
 
+input:disabled {
+    background-color: transparent;
+}
+
 .section-header {
     display: flex;
     flex-direction: column;
@@ -70,7 +74,7 @@ fieldset {
 }
 
 @media screen and (min-width: 768px) {
-    .section-header{
+    .section-header {
         margin-bottom: 70px;
     }
 

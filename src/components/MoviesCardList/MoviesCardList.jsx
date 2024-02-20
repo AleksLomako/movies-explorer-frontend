@@ -13,46 +13,6 @@ function MoviesCardList() {
                     movieDuration="1ч 47м"
                     movieImage={MovieImage}
                 />
-                <MoviesCard
-                    movieName="33 слова о дизайне"
-                    movieDuration="1ч 47м"
-                    movieImage={MovieImage}
-                />
-                <MoviesCard
-                    movieName="33 слова о дизайне"
-                    movieDuration="1ч 47м"
-                    movieImage={MovieImage}
-                />
-                <MoviesCard
-                    movieName="33 слова о дизайне"
-                    movieDuration="1ч 47м"
-                    movieImage={MovieImage}
-                />
-                <MoviesCard
-                    movieName="33 слова о дизайне"
-                    movieDuration="1ч 47м"
-                    movieImage={MovieImage}
-                />
-                <MoviesCard
-                    movieName="33 слова о дизайне"
-                    movieDuration="1ч 47м"
-                    movieImage={MovieImage}
-                />
-                <MoviesCard
-                    movieName="33 слова о дизайне"
-                    movieDuration="1ч 47м"
-                    movieImage={MovieImage}
-                />
-                <MoviesCard
-                    movieName="33 слова о дизайне"
-                    movieDuration="1ч 47м"
-                    movieImage={MovieImage}
-                />
-                <MoviesCard
-                    movieName="33 слова о дизайне"
-                    movieDuration="1ч 47м"
-                    movieImage={MovieImage}
-                />
             </ul>
         </div>
     );

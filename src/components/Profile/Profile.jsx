@@ -1,24 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './Profile.css';
-import { useNavigate } from 'react-router-dom';
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
-function Profile() {
+function Profile({ onUpdateUser, errorMessage, onExitProfile }) {
 
+    const currentUser = React.useContext(CurrentUserContext);
     const { values, errors, isValid, handleChangeInputs, resetFormInputs } = useFormWithValidation();
+    const [isFormValid, setIsFormValid] = useState(false);//состояние инпутов
 
-    const navigate = useNavigate();
+    useEffect(() => {
+        if (currentUser) {
+            resetFormInputs(currentUser, {}, true);
+        }
+    }, [currentUser, resetFormInputs]);
 
-    function handleLogOutProfile() {
-        navigate('/');
+    function onEditProfile() {
+        setIsFormValid(true);
     }
+
+    function handleProfileSubmit(e) {
+        e.preventDefault();
+        onUpdateUser(values);
+        // setIsFormValid(false);
+    }
+    
+
+    const inputValidity = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
 
     return (
         <>
             <main className="profile">
-                <h1 className="profile__title">Привет, Виталий!</h1>
-                <form className="profile__form">
-                    <fieldset className="profile__inputs">
+                <h1 className="profile__title">{`Привет, ${currentUser.name || ''}!`}</h1>
+                <form className="profile__form"
+                    name="profile"
+                    onSubmit={handleProfileSubmit}
+                    noValidate>
+                    <fieldset className="profile__inputs" disabled={isFormValid ? false : true}>
                         <label className="profile__label" htmlFor="user-name">
                             Имя
                             <input
@@ -52,16 +70,24 @@ function Profile() {
                         <span className="profile__input-error">{errors.email || ''}</span>
                     </fieldset>
                     <fieldset className="profile__buttons">
-                        {/* <>
-                            <span className="profile__error">При обновлении профиля произошла ошибка.</span>
-                            <button className="profile__button-submit" type="submit">Сохранить</button>
-                        </> */}
-
-                        <>
-                            <button className="profile__button profile__button_edit" type="button">Редактировать</button>
-                            <button className="profile__button profile__button_exit" type="button" onClick={handleLogOutProfile}>Выйти из аккаунта</button>
-                        </>
-
+                        {
+                            isFormValid ?
+                                <>
+                                    <span className="profile__error">{errorMessage}</span>
+                                    <button
+                                        className={`profile__button-submit ${!isValid && 'profile__button-submit_inactive'}`}
+                                        type="submit"
+                                        disabled={inputValidity ? true : false}
+                                    >
+                                        Сохранить
+                                    </button>
+                                </>
+                                :
+                                <>
+                                    <button className="profile__button profile__button_edit" type="button" onClick={onEditProfile}>Редактировать</button>
+                                    <button className="profile__button profile__button_exit" type="button" onClick={onExitProfile}>Выйти из аккаунта</button>
+                                </>
+                        }
                     </fieldset>
                 </form>
             </main>

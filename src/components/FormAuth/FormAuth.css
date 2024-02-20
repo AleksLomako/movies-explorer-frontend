@@ -44,6 +44,19 @@
 
 }
 
+.auth__error {
+    color: #FF004C;
+    font-size: 11px;
+    line-height: 13px;
+    font-weight: 400;
+    text-align: center;
+    display: none;
+}
+
+.auth__error_visible {
+    display: block;
+}
+
 .auth__submit-button {
     border-radius: 3px;
     background: #FF6838;
