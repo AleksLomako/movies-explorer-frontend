@@ -1,27 +1,8 @@
 .movies {
     padding: 0px 10px;
+    display: flex;
+    flex-direction: column;
 }
-
-.movies__more-section {
-    padding: 50px 0px 80px;
-}
-
-.movies__more-button {
-    border-radius: 6px;
-    background: #F9F9F9;
-    width: 100%;
-    text-align: center;
-    padding: 11px 0px 10px;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 15px;
-    cursor: pointer;
-}
-
-.movies__more-button:hover {
-    opacity: 0.8;
-}
-
 
 @media screen and (min-width: 768px) {
     .movies {

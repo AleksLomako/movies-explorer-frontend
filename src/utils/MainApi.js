@@ -30,7 +30,7 @@ class MainApi {
                 password
             })
         })
-        .then(res => this._checkResponse(res));
+            .then(res => this._checkResponse(res));
     }
 
     // авторизация
@@ -43,7 +43,7 @@ class MainApi {
                 password
             })
         })
-        .then(res => this._checkResponse(res));
+            .then(res => this._checkResponse(res));
     }
 
     // проверка токена
@@ -55,7 +55,7 @@ class MainApi {
                 Authorization: `Bearer ${token}`
             }
         })
-        .then(res => this._checkResponse(res));
+            .then(res => this._checkResponse(res));
     }
 
     // получение данных пользователя
@@ -64,7 +64,7 @@ class MainApi {
         return fetch(`${this._url}/users/me`, {
             headers: this._headers
         })
-        .then(res => this._checkResponse(res));
+            .then(res => this._checkResponse(res));
     }
 
     // обновление данных пользователя
@@ -78,7 +78,7 @@ class MainApi {
                 email
             })
         })
-        .then(res => this._checkResponse(res));
+            .then(res => this._checkResponse(res));
     }
 
     // MOVIES
@@ -86,7 +86,7 @@ class MainApi {
     // добавление фильма в "сохраненные"
     saveMovie(data) {
         this.setJwt()
-        return this._request(`${this._url}/movies`, {
+        return fetch(`${this._url}/movies`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
@@ -103,32 +103,26 @@ class MainApi {
                 nameEN: data.nameEN,
             })
         })
-            .then((result) => {
-                return result
-            })
+            .then(res => this._checkResponse(res));
     }
 
     // получение сохраненных фильмов
     getSavedMovies() {
         this.setJwt()
-        return this._request(`${this._url}/movies`, {
+        return fetch(`${this._url}/movies`, {
             headers: this._headers
         })
-            .then((result) => {
-                return result
-            })
+            .then(res => this._checkResponse(res));
     }
 
     // удаление сохраненного фильма
     deleteSavedMovie(id) {
         this.setJwt()
-        return this._request(`${this._url}/movies/${id}`, {
+        return fetch(`${this._url}/movies/${id}`, {
             method: 'DELETE',
             headers: this._headers
         })
-            .then((result) => {
-                return result
-            })
+            .then(res => this._checkResponse(res));
     }
 }
 

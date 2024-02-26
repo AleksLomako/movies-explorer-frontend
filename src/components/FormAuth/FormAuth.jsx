@@ -2,7 +2,7 @@ import { React } from "react";
 import './FormAuth.css';
 import { Link } from 'react-router-dom';
 
-function FormAuth({ title, children, button, answer, route, link, onSubmit, name, disabled, className, errorMessage }) {
+function FormAuth({ title, children, button, answer, route, link, onSubmit, name, disabled, className, errorMessage}) {
 
     return (
         <section className="auth">
