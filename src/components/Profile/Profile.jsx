@@ -22,7 +22,6 @@ function Profile({ onUpdateUser, errorMessage, onExitProfile }) {
     function handleProfileSubmit(e) {
         e.preventDefault();
         onUpdateUser(values);
-        // setIsFormValid(false);
     }
     
 
@@ -75,7 +74,7 @@ function Profile({ onUpdateUser, errorMessage, onExitProfile }) {
                                 <>
                                     <span className="profile__error">{errorMessage}</span>
                                     <button
-                                        className={`profile__button-submit ${!isValid && 'profile__button-submit_inactive'}`}
+                                        className={`profile__button-submit ${inputValidity && 'profile__button-submit_inactive'}`}
                                         type="submit"
                                         disabled={inputValidity ? true : false}
                                     >

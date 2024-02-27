@@ -9,10 +9,7 @@ class MainApi {
         const result = await res.json();
         return res.ok ? result : Promise.reject(result.message);
     }
-    // запрос
-    // _request(url, options) {
-    //     return fetch(url, options).then(this._checkResponse);
-    // }
+    
     // получение токена из заголовока
     setJwt() {
         this._headers.Authorization = `Bearer ${localStorage.getItem('jwt')}`;

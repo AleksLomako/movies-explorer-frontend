@@ -45,7 +45,6 @@ function MoviesCardList({ moviesList, savedMoviesList, onSaveClick, onDeleteClic
         }
     }
 
-
     useEffect(() => {
         setDisplayedMovies(moviesList)
     }, [moviesList, countMovies])

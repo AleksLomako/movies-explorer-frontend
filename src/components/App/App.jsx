@@ -54,8 +54,6 @@ function App() {
     }
     else {
       setLoading(true);
-      // setIsLoaderOn(false);
-      console.log("LOADER");
     }
   }, []);
 
@@ -82,20 +80,6 @@ function App() {
         );
     }
   }, [isLoggedIn]);
-
-  //Получение списка сохраненных фильмов
-  // useEffect(() => {
-  //   if (isLoggedIn && currentUser) {
-  //     mainApi.getSavedMovies()
-  //       .then((data) => {
-  //         const usersavedMoviesList = data.filter(movie => movie.owner === currentUser._id);
-  //         setSavedMoviesList(usersavedMoviesList);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [isLoggedIn, currentUser])
 
   // Обработчик входа в приложение
   function handleLogin({ email, password }) {
