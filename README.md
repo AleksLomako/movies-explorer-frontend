@@ -9,7 +9,7 @@ IP 84.252.129.120
 
 Backend https://api.alekslomako.movies.nomoredomainsmonster.ru
 
-Frontend 
+Frontend https://alekslomako.movies.nomoredomainsmonster.ru
 
 PullRequest 
 
