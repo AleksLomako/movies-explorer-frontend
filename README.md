@@ -11,7 +11,7 @@ Backend https://api.alekslomako.movies.nomoredomainsmonster.ru
 
 Frontend https://alekslomako.movies.nomoredomainsmonster.ru
 
-PullRequest 
+PullRequest https://github.com/AleksLomako/movies-explorer-frontend/pull/2
 
 
 ## Функционал:
