@@ -11,27 +11,34 @@ function SearchForm({ handleSearchSubmit, onChange, checkedShortMovies, errorMes
     const [searchMovie, setSearchMovie] = useState('');
     const [errors, setErrors] = useState(''); 
 
-
-    useEffect(()=>{
-        if (searchMovie !== ""){
-            handleSearchSubmit(searchMovie);
-            // console.log(searchMovie);
-        }
-        else{
-            // console.log(searchMovie);
-        }
-        
-
-    },[checkedShortMovies])
-
     function handleChangeInputs(e) {
         setSearchMovie(e.target.value);
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-        // setErrors('');
-        handleSearchSubmit(searchMovie);
+        verifyInputField(checkedShortMovies)
+    }
+
+    function searchСheckbox() {
+        let checkboxState = "";
+        if (localStorage.getItem('checkboxState') === 'true') {
+            checkboxState = false;
+        }
+        else {
+            checkboxState = true;
+        }
+        verifyInputField(checkboxState)
+    }
+
+    function verifyInputField(checkboxState) {
+        if (location.pathname === '/movies' && searchMovie.trim().length === 0) {
+            setErrors('Нужно ввести ключевое слово');
+        }
+        else {
+            setErrors('');
+            handleSearchSubmit(searchMovie, checkboxState);
+        }
     }
 
     useEffect(() => {
@@ -63,11 +70,12 @@ function SearchForm({ handleSearchSubmit, onChange, checkedShortMovies, errorMes
                         <img className="" src={SearchFind} alt="Иконка поиска" />
                     </button>
                 </fieldset>
-                {/* <span className="search-form__error">{errors}</span> */}
+                <span className="search-form__error">{errors}</span>
                 <span className="search-form__api-error">{errorMessage}</span>
                 <FilterCheckbox
                     onChange={onChange}
                     checkedShortMovies={checkedShortMovies}
+                    onClick={searchСheckbox}
                 />
             </form>
         </div>

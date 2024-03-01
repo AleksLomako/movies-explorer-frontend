@@ -3,13 +3,14 @@ import './Profile.css';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
-function Profile({ onUpdateUser, onExitProfile, apiError, setApiError }) {
+function Profile({ onUpdateUser, onExitProfile, apiError, setApiError}) {
 
     const currentUser = React.useContext(CurrentUserContext);
     const { values, errors, isValid, handleChangeInputs, resetFormInputs } = useFormWithValidation();
     const [isFormValid, setIsFormValid] = useState(false);//состояние инпутов
 
     const inputValidity = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
+    
 
     React.useEffect(() => {
         setApiError('')

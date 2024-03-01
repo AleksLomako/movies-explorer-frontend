@@ -5,16 +5,20 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import moviesApi from '../../utils/MoviesApi';
 import { filterMovies, filterShortMovies } from '../../utils/filterMovies';
 import SearchError from "../SearchError/SearchError";
+import Preloader from './../Preloader/Preloader';
 
 
-function Movies({savedMoviesList, onSaveClick, onDeleteClick }) {
+function Movies({savedMoviesList, onSaveClick, onDeleteClick, isLoading, setIsLoading }) {
 
     const [allMovies, setAllMovies] = useState([]); // все фильмы на сервере
-    const [searchedMovies, setSearchedMovies] = useState([]); // фильмы по запросу
     const [filtredShortMovies, setFiltredShortMovies] = useState([]); //фильмы по запросу, отфильтрованные чекбоксом
     const [notFoundMovies, setNotFoundMovies] = useState(false); //не найденные фильмы по запросу
     const [checkedShortMovies, setCheckedShortMovies] = useState(false); // состояние чекбокса  
     const [errors, setErrors] = useState(''); // отображение ошибок
+    const inputMovie = localStorage.getItem('inputMovie');
+    const checkboxState = localStorage.getItem('checkboxState');
+    // const [loading, setLoading] = useState(false);
+    // const [isLoaderOn, setIsLoaderOn] = useState(false);
 
 
     // Проверка состояния чекбокса в хранилище
@@ -26,92 +30,89 @@ function Movies({savedMoviesList, onSaveClick, onDeleteClick }) {
     // Отображение фильмов из хранилища
     useEffect(() => {
         if (localStorage.getItem('moviesList')) {
-            const moviesList = JSON.parse(localStorage.getItem('moviesList'));
-            setSearchedMovies(moviesList);
-
-            if (localStorage.getItem('checkboxState') === 'true') {
-                setFiltredShortMovies(filterShortMovies(moviesList));
+            if (checkboxState === 'true') {
+                handleMoviesList(JSON.parse(localStorage.getItem('moviesList')), inputMovie, true)
             }
             else {
-                setFiltredShortMovies(moviesList);
+                handleMoviesList(JSON.parse(localStorage.getItem('moviesList')), inputMovie, false)
             }
         }
     }, []);
 
     // Создание отфильтрованного списка фильмов
-    function handleMoviesList(moviesList, inputMovie, checkedShortMovies) {
-        const movies = filterMovies(moviesList, inputMovie, checkedShortMovies)
+    function handleMoviesList(moviesList, inputMovie, checkboxState) {
+        // setIsLoaderOn(true);
+        let movies = filterMovies(moviesList, inputMovie, checkboxState)
+        if (checkboxState === true) {
+            movies = filterShortMovies(movies)
+        }
         if (movies.length === 0) {
             setNotFoundMovies(true);
         }
         else {
             setNotFoundMovies(false);
         }
-        setSearchedMovies(movies);
-        setFiltredShortMovies(!checkedShortMovies ? movies : filterShortMovies(movies));
-        localStorage.setItem('moviesList', JSON.stringify(movies));
+        setFiltredShortMovies(movies);
+        localStorage.setItem('moviesList', JSON.stringify(moviesList));
+        // setLoading(true)
     }
 
 
     // Поиск фильмов по запросу
-    function handleSearchSubmit(inputMovie) {
-        if(inputMovie === ""){
-            console.log("YE:YF ");
-            setErrors('Нужно ввести ключевое слово');
-        }
-        else{
-            setErrors('');
-            localStorage.setItem('checkboxState', checkedShortMovies)
+    function handleSearchSubmit(inputMovie, checkboxState) {
+        localStorage.setItem('checkboxState', checkedShortMovies)
         localStorage.setItem('inputMovie', inputMovie)
         if (allMovies.length === 0) {
+            // setIsLoaderOn(true);
             moviesApi.getMovies()
                 .then(moviesList => {
                     setAllMovies(moviesList);
                     localStorage.setItem('moviesList', JSON.stringify(moviesList));
-                    handleMoviesList(moviesList, inputMovie, checkedShortMovies);
+                    handleMoviesList(moviesList, inputMovie, checkboxState);
                 })
                 .catch(() => {
                     setErrors('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
                 })
-                // .finally(() => setIsLoaderOn(false));
+                .finally(() => {
+                    // setIsLoaderOn(false)
+                    // setLoading(true)
+                });
         }
         else {
-            handleMoviesList(allMovies, inputMovie, checkedShortMovies)
-        } 
+            handleMoviesList(allMovies, inputMovie, checkboxState)
         }
     }
 
     // изменение состояния чекбокса для короткометражек
     function handleChangeCheckbox() {
         setCheckedShortMovies(!checkedShortMovies);
-        if (!checkedShortMovies) {
-            setFiltredShortMovies(filterShortMovies(searchedMovies))
-        } else {
-            setFiltredShortMovies(searchedMovies)
-        }
         localStorage.setItem('checkboxState', !checkedShortMovies)
     }
 
     return (
         <>
-            <main className="movies">
-                <SearchForm
-                    handleSearchSubmit={handleSearchSubmit}
-                    onChange={handleChangeCheckbox}
-                    checkedShortMovies={checkedShortMovies}
-                    errorMessage={errors}
-                />
-                {!notFoundMovies ? (
-                    <MoviesCardList
-                        moviesList={filtredShortMovies}
-                        savedMoviesList={savedMoviesList}
-                        onSaveClick={onSaveClick}
-                        onDeleteClick={onDeleteClick} />
-                ) : (<SearchError
-                    errorText={'Ничего не найдено'} />)
-                }
+            {/* {!loading ? (
+                <Preloader isOpen={isLoaderOn} />
+            ) : ( */}
+                <main className="movies">
+                    <SearchForm
+                        handleSearchSubmit={handleSearchSubmit}
+                        onChange={handleChangeCheckbox}
 
-            </main>
+                        checkedShortMovies={checkedShortMovies}
+                        errorMessage={errors}
+                    />
+                    {!notFoundMovies ? (
+                        <MoviesCardList
+                            moviesList={filtredShortMovies}
+                            savedMoviesList={savedMoviesList}
+                            onSaveClick={onSaveClick}
+                            onDeleteClick={onDeleteClick} />
+                    ) : (<SearchError
+                        errorText={'Ничего не найдено'} />)
+                    }
+                </main>
+            {/* )} */}
         </>
 
     );

@@ -2,7 +2,7 @@ import React from "react";
 import './FilterCheckbox.css';
 
 
-function FilterCheckbox({ onChange, checkedShortMovies}) {
+function FilterCheckbox({ onChange, checkedShortMovies, onClick}) {
     return (
         <fieldset className="checkbox">
             <input className="checkbox__input"
@@ -10,6 +10,7 @@ function FilterCheckbox({ onChange, checkedShortMovies}) {
                 id="short-films"
                 onChange={onChange}
                 checked={checkedShortMovies}
+                onClick={onClick}
             />
             <label className="checkbox__text" htmlFor="short-films">Короткометражки</label>
         </fieldset>

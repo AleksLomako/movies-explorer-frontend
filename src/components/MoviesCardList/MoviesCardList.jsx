@@ -3,15 +3,12 @@ import { useLocation } from 'react-router-dom';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-
 function MoviesCardList({ moviesList, savedMoviesList, onSaveClick, onDeleteClick }) {
 
     const { pathname } = useLocation();
     const [displayedMovies, setDisplayedMovies] = useState([]);  //отфильтрованные фильмы для отображения
     const [countMovies, setCountMovies] = useState(0);
-    // //////////////////////////////////////Новая часть.............
     const [tempInput, setTempInput] = useState('')
-    //////////////////////////////////////////////////////////////
 
     function showCount() {
         const width = window.innerWidth;
@@ -26,9 +23,7 @@ function MoviesCardList({ moviesList, savedMoviesList, onSaveClick, onDeleteClic
 
     useEffect(() => {
         showCount();
-        // //////////////////////////////////////Новая часть.............
         setTempInput(localStorage.getItem('inputMovie'))
-        //////////////////////////////////////////////////////////////
     }, []);
 
 
@@ -53,12 +48,10 @@ function MoviesCardList({ moviesList, savedMoviesList, onSaveClick, onDeleteClic
 
     useEffect(() => {
         setDisplayedMovies(moviesList)
-        // НОВАЯ ЧАСТЬ /////////////////////////////////////////////
         if (tempInput !== localStorage.getItem('inputMovie')){
             setTempInput(localStorage.getItem('inputMovie'))
             showCount()
         }
-        //  //////////////////////////////////////////////////////////
     }, [moviesList, countMovies])
 
 

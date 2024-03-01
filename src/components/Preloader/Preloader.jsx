@@ -1,14 +1,17 @@
 import React from 'react'
 import './Preloader.css'
 
-function Preloader() {
+function Preloader({ isOpen }) {
     return (
-        <>
-            <div className="preloader">
-                <div className="preloader__container">
-                    <span className="preloader__round"></span>
+        <>{
+            isOpen && (
+                <div className="preloader">
+                    <div className="preloader__container">
+                        <span className="preloader__round"></span>
+                    </div>
                 </div>
-            </div>
+            )
+        }
         </>
     )
 };
