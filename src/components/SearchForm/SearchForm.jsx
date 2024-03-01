@@ -5,12 +5,24 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import SearchIcon from '../../images/search-icon.svg';
 import SearchFind from '../../images/search-find.svg';
 
-function SearchForm({ handleSearchSubmit, onChange, checkedShortMovies, errorMessage }) {
+function SearchForm({ handleSearchSubmit, onChange, checkedShortMovies, errorMessage}) {
 
     const location = useLocation();
-
     const [searchMovie, setSearchMovie] = useState('');
     const [errors, setErrors] = useState(''); 
+
+
+    useEffect(()=>{
+        if (searchMovie !== ""){
+            handleSearchSubmit(searchMovie);
+            // console.log(searchMovie);
+        }
+        else{
+            // console.log(searchMovie);
+        }
+        
+
+    },[checkedShortMovies])
 
     function handleChangeInputs(e) {
         setSearchMovie(e.target.value);
@@ -18,12 +30,8 @@ function SearchForm({ handleSearchSubmit, onChange, checkedShortMovies, errorMes
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (searchMovie.trim().length === 0) {
-            setErrors('Нужно ввести ключевое слово');
-        } else {
-            setErrors('');
-            handleSearchSubmit(searchMovie);
-        }
+        // setErrors('');
+        handleSearchSubmit(searchMovie);
     }
 
     useEffect(() => {
@@ -55,7 +63,7 @@ function SearchForm({ handleSearchSubmit, onChange, checkedShortMovies, errorMes
                         <img className="" src={SearchFind} alt="Иконка поиска" />
                     </button>
                 </fieldset>
-                <span className="search-form__error">{errors}</span>
+                {/* <span className="search-form__error">{errors}</span> */}
                 <span className="search-form__api-error">{errorMessage}</span>
                 <FilterCheckbox
                     onChange={onChange}

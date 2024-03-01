@@ -3,11 +3,17 @@ import './Profile.css';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
-function Profile({ onUpdateUser, errorMessage, onExitProfile }) {
+function Profile({ onUpdateUser, onExitProfile, apiError, setApiError }) {
 
     const currentUser = React.useContext(CurrentUserContext);
     const { values, errors, isValid, handleChangeInputs, resetFormInputs } = useFormWithValidation();
     const [isFormValid, setIsFormValid] = useState(false);//состояние инпутов
+
+    const inputValidity = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
+
+    React.useEffect(() => {
+        setApiError('')
+    }, [setApiError])
 
     useEffect(() => {
         if (currentUser) {
@@ -16,16 +22,17 @@ function Profile({ onUpdateUser, errorMessage, onExitProfile }) {
     }, [currentUser, resetFormInputs]);
 
     function onEditProfile() {
+        setApiError('')
         setIsFormValid(true);
     }
 
     function handleProfileSubmit(e) {
         e.preventDefault();
         onUpdateUser(values);
+        setApiError('Данные успешно обновлены')
+        setIsFormValid(false)
     }
-    
 
-    const inputValidity = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
 
     return (
         <>
@@ -69,29 +76,36 @@ function Profile({ onUpdateUser, errorMessage, onExitProfile }) {
                         <span className="profile__input-error">{errors.email || ''}</span>
                     </fieldset>
                     <fieldset className="profile__buttons">
-                        {
-                            isFormValid ?
-                                <>
-                                    <span className="profile__error">{errorMessage}</span>
-                                    <button
-                                        className={`profile__button-submit ${inputValidity && 'profile__button-submit_inactive'}`}
-                                        type="submit"
-                                        disabled={inputValidity ? true : false}
-                                    >
-                                        Сохранить
-                                    </button>
-                                </>
-                                :
-                                <>
-                                    <button className="profile__button profile__button_edit" type="button" onClick={onEditProfile}>Редактировать</button>
-                                    <button className="profile__button profile__button_exit" type="button" onClick={onExitProfile}>Выйти из аккаунта</button>
-                                </>
-                        }
+                        <span className="profile__error">{apiError}</span>
+                        <button
+                            className={`profile__button-submit ${inputValidity && 'profile__button-submit_inactive'}`}
+                            type="submit"
+                            disabled={inputValidity ? true : false}
+                            hidden={!isFormValid}
+                        >
+                            Сохранить
+                        </button>
+
+                        <button
+                            className="profile__button profile__button_edit"
+                            type="button"
+                            onClick={onEditProfile}
+                            hidden={isFormValid}
+                        >
+                            Редактировать
+                        </button>
+                        <button
+                            className="profile__button profile__button_exit"
+                            type="button"
+                            onClick={onExitProfile}
+                            hidden={isFormValid}
+                        >
+                            Выйти
+                        </button>
                     </fieldset>
                 </form>
             </main>
         </>
-
     );
 }
 

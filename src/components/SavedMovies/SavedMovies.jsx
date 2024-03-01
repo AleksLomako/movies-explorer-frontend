@@ -14,13 +14,13 @@ function SavedMovies({ savedMoviesList, onDeleteClick }) {
 
     // 
     useEffect(() => {
-        if (localStorage.getItem('shortSavedMovies') === 'true') {
-            setCheckedShortMovies(true);
-            setSearchedMovies(filterShortMovies(savedMoviesList));
-        } else {
-            setCheckedShortMovies(false);
+        // if (localStorage.getItem('shortSavedMovies') === 'true') {
+        //     setCheckedShortMovies(true);
+        //     setSearchedMovies(filterShortMovies(savedMoviesList));
+        // } else {
+        //     setCheckedShortMovies(false);
             setSearchedMovies(savedMoviesList);
-        }
+        // }
     }, [savedMoviesList])
 
     useEffect(() => {

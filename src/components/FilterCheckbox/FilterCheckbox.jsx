@@ -2,7 +2,7 @@ import React from "react";
 import './FilterCheckbox.css';
 
 
-function FilterCheckbox({ onChange, checkedShortMovies }) {
+function FilterCheckbox({ onChange, checkedShortMovies}) {
     return (
         <fieldset className="checkbox">
             <input className="checkbox__input"

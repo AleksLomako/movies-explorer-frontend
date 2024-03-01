@@ -28,7 +28,9 @@ function App() {
   const [apiError, setApiError] = useState(''); //Ошибка от сервера
   // 
   const [loading, setLoading] = useState(false);
-  const [isLoaderOn, setIsLoaderOn] = useState(false);
+
+
+  // const [isFormValid, setIsFormValid] = useState(false);
 
 
   // Проверка токена
@@ -36,7 +38,7 @@ function App() {
     const jwt = localStorage.getItem('jwt');
     const path = location.pathname;
     if (jwt) {
-      setIsLoaderOn(true);
+      // setIsLoaderOn(true);
       mainApi.checkToken(jwt)
         .then((res) => {
           if (res) {
@@ -48,7 +50,7 @@ function App() {
           console.log(err);
         })
         .finally(() => {
-          setIsLoaderOn(false);
+          // setIsLoaderOn(false);
           setLoading(true);
         })
     }
@@ -60,7 +62,7 @@ function App() {
   //Получение информации о текущем пользователе и фильмах
   useEffect(() => {
     if (isLoggedIn) {
-      setIsLoaderOn(true);
+      // setIsLoaderOn(true);
 
       mainApi.getUserInfo().then(res => {
         setCurrentUser(res.user);
@@ -70,20 +72,19 @@ function App() {
         });
       mainApi.getSavedMovies().then((res) => {
         setSavedMoviesList(res);
-
       })
         .catch((err) => {
           console.log(err);
         })
-        .finally(() =>
-          setIsLoaderOn(false)
-        );
+      // .finally(() =>
+      //   setIsLoaderOn(false)
+      // );
     }
   }, [isLoggedIn]);
 
   // Обработчик входа в приложение
   function handleLogin({ email, password }) {
-    setIsLoaderOn(true);
+    // setIsLoaderOn(true);
     mainApi.authorize(email, password)
       .then((res) => {
         localStorage.setItem('jwt', res.token);
@@ -96,14 +97,14 @@ function App() {
         setApiError(err);
         // setIsLoggedIn(false);
       })
-      .finally(() =>
-        setIsLoaderOn(false)
-      );
+    // .finally(() =>
+    //   setIsLoaderOn(false)
+    // );
   };
 
   // Обработчик регистрации
   function handleRegister({ name, email, password }) {
-    setIsLoaderOn(true);
+    // setIsLoaderOn(true);
     mainApi.register(name, email, password)
       .then((res) => {
         handleLogin({ email, password })
@@ -112,25 +113,21 @@ function App() {
         setApiError(err);
         console.log(err);
       })
-      .finally(() =>
-        setIsLoaderOn(false)
-      );
+    // .finally(() =>
+    //   setIsLoaderOn(false)
+    // );
   };
 
   // Редактирование профиля
   function handleEditProfile(user) {
-    setIsLoaderOn(true);
     mainApi.updateUserInfo(user.name, user.email)
       .then((newUser) => {
         setCurrentUser(newUser);
-        setApiError('Данные успешно обновлены')
+        // setApiError('')
       })
       .catch((err) => {
         setApiError(err)
       })
-      .finally(() =>
-        setIsLoaderOn(false)
-      );
   };
 
 
@@ -189,14 +186,13 @@ function App() {
   return (
     <>
       {!loading ? (
-        <Preloader isOpen={isLoaderOn} />
+        <Preloader />
       ) : (<CurrentUserContext.Provider value={currentUser}>
         <>
           <Routes>
             <Route path="/" element={
               <>
                 <Header isBlueTheme={true} isLoggedIn={isLoggedIn} />
-                {/* <Preloader isOpen={isLoaderOn} /> */}
                 <Main />
                 <Footer />
               </>
@@ -206,7 +202,7 @@ function App() {
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <Header isLoggedIn={isLoggedIn} />
                 <Movies
-                  setIsLoaderOn={setIsLoaderOn}
+                  // setIsLoaderOn={setIsLoaderOn}
                   savedMoviesList={savedMoviesList}
                   onSaveClick={handleSaveMovie}
                   onDeleteClick={handleDeleteMovie} />
@@ -230,7 +226,8 @@ function App() {
                 <Profile
                   onUpdateUser={handleEditProfile}
                   onExitProfile={handleLogOut}
-                  errorMessage={apiError}
+                  apiError={apiError}
+                  setApiError={setApiError}
                 />
               </ProtectedRoute>
             }

@@ -7,7 +7,7 @@ import { filterMovies, filterShortMovies } from '../../utils/filterMovies';
 import SearchError from "../SearchError/SearchError";
 
 
-function Movies({setIsLoaderOn, savedMoviesList, onSaveClick, onDeleteClick }) {
+function Movies({savedMoviesList, onSaveClick, onDeleteClick }) {
 
     const [allMovies, setAllMovies] = useState([]); // все фильмы на сервере
     const [searchedMovies, setSearchedMovies] = useState([]); // фильмы по запросу
@@ -15,7 +15,6 @@ function Movies({setIsLoaderOn, savedMoviesList, onSaveClick, onDeleteClick }) {
     const [notFoundMovies, setNotFoundMovies] = useState(false); //не найденные фильмы по запросу
     const [checkedShortMovies, setCheckedShortMovies] = useState(false); // состояние чекбокса  
     const [errors, setErrors] = useState(''); // отображение ошибок
-
 
 
     // Проверка состояния чекбокса в хранилище
@@ -56,10 +55,15 @@ function Movies({setIsLoaderOn, savedMoviesList, onSaveClick, onDeleteClick }) {
 
     // Поиск фильмов по запросу
     function handleSearchSubmit(inputMovie) {
-        localStorage.setItem('checkboxState', checkedShortMovies)
+        if(inputMovie === ""){
+            console.log("YE:YF ");
+            setErrors('Нужно ввести ключевое слово');
+        }
+        else{
+            setErrors('');
+            localStorage.setItem('checkboxState', checkedShortMovies)
         localStorage.setItem('inputMovie', inputMovie)
         if (allMovies.length === 0) {
-            setIsLoaderOn(true);
             moviesApi.getMovies()
                 .then(moviesList => {
                     setAllMovies(moviesList);
@@ -69,10 +73,11 @@ function Movies({setIsLoaderOn, savedMoviesList, onSaveClick, onDeleteClick }) {
                 .catch(() => {
                     setErrors('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
                 })
-                .finally(() => setIsLoaderOn(false));
+                // .finally(() => setIsLoaderOn(false));
         }
         else {
             handleMoviesList(allMovies, inputMovie, checkedShortMovies)
+        } 
         }
     }
 

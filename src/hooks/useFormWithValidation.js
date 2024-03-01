@@ -42,7 +42,7 @@ function useFormWithValidation() {
         [setValues, setErrors, setIsValid]
     );
 
-    return { values, errors, isValid, setIsValid, handleChangeInputs, resetFormInputs };
+    return { values, errors, isValid, setValues, setIsValid, handleChangeInputs, resetFormInputs };
 }
 
 export default useFormWithValidation;
