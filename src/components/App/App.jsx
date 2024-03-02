@@ -26,7 +26,6 @@ function App() {
   const [savedMoviesList, setSavedMoviesList] = useState([]); // Сохраненные фильмы
   const [apiError, setApiError] = useState(''); //Ошибка от сервера
   const [loading, setLoading] = useState(false);
-  const [isLoaderOn, setIsLoaderOn] = useState(false);
 
 
   // Проверка токена
@@ -34,7 +33,7 @@ function App() {
     const jwt = localStorage.getItem('jwt');
     const path = location.pathname;
     if (jwt) {
-      setIsLoaderOn(true);
+      setLoading(true);
       mainApi.checkToken(jwt)
         .then((res) => {
           if (res) {
@@ -46,19 +45,15 @@ function App() {
           console.log(err);
         })
         .finally(() => {
-          setIsLoaderOn(false);
-          setLoading(true);
+          setLoading(false);
         })
-    }
-    else {
-      setLoading(true);
     }
   }, []);
 
   //Получение информации о текущем пользователе и фильмах
   useEffect(() => {
     if (isLoggedIn) {
-      setIsLoaderOn(true);
+      setLoading(true)
       mainApi.getUserInfo().then(res => {
         setCurrentUser(res.user);
       })
@@ -72,14 +67,14 @@ function App() {
           console.log(err);
         })
         .finally(() =>
-          setIsLoaderOn(false)
+          setLoading(false)
         );
     }
   }, [isLoggedIn]);
 
   // Обработчик входа в приложение
   function handleLogin({ email, password }) {
-    setIsLoaderOn(true);
+    setLoading(true)
     mainApi.authorize(email, password)
       .then((res) => {
         localStorage.setItem('jwt', res.token);
@@ -92,13 +87,13 @@ function App() {
         setApiError(err);
       })
       .finally(() => {
-        setIsLoaderOn(false)
+        setLoading(false)
       });
   };
 
   // Обработчик регистрации
   function handleRegister({ name, email, password }) {
-    setIsLoaderOn(true);
+    setLoading(true);
     mainApi.register(name, email, password)
       .then((res) => {
         handleLogin({ email, password })
@@ -108,23 +103,22 @@ function App() {
         console.log(err);
       })
       .finally(() => {
-        setIsLoaderOn(false);
+        setLoading(false);
       });
   };
 
   // Редактирование профиля
   function handleEditProfile(user) {
-    setIsLoaderOn(true);
+    setLoading(true);
     mainApi.updateUserInfo(user.name, user.email)
       .then((newUser) => {
         setCurrentUser(newUser);
-        // setApiError('')
       })
       .catch((err) => {
         setApiError(err)
       })
       .finally(() => {
-        setIsLoaderOn(false);
+        setLoading(false);
       });
   };
 
@@ -183,62 +177,57 @@ function App() {
 
   return (
     <>
-      {!loading ? (
-        <Preloader isOpen={isLoaderOn} />) :
-        (<CurrentUserContext.Provider value={currentUser}>
-          <>
-            <Routes>
-              <Route path="/" element={
-                <>
-                  <Preloader isOpen={isLoaderOn} />
-                  <Header isBlueTheme={true} isLoggedIn={isLoggedIn} />
-                  <Main />
-                  <Footer />
-                </>
-              }
-              />
-              <Route path="/movies" element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Header isLoggedIn={isLoggedIn} />
-                  <Movies
-                    setIsLoaderOn={setIsLoaderOn}
-                    savedMoviesList={savedMoviesList}
-                    onSaveClick={handleSaveMovie}
-                    onDeleteClick={handleDeleteMovie} />
-                  <Footer />
-                </ProtectedRoute>
-              }
-              />
-              <Route path="/saved-movies" element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Header isLoggedIn={isLoggedIn} />
-                  <SavedMovies
-                    savedMoviesList={savedMoviesList}
-                    onDeleteClick={handleDeleteMovie} />
-                  <Footer />
-                </ProtectedRoute>
-              }
-              />
-              <Route path="/profile" element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Header isLoggedIn={isLoggedIn} />
-                  <Profile
-                    onUpdateUser={handleEditProfile}
-                    onExitProfile={handleLogOut}
-                    apiError={apiError}
-                    setApiError={setApiError}
-                  />
-                </ProtectedRoute>
-              }
-              />
-              <Route path="/signup" element={isLoggedIn ? <Navigate to="/movies" replace /> : <Register onRegister={handleRegister} errorMessage={apiError} />} />
-              <Route path="/signin" element={isLoggedIn ? <Navigate to="/movies" replace /> : <Login onLogin={handleLogin} errorMessage={apiError} />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </>
-        </CurrentUserContext.Provider>)}
-
-
+      {loading && <Preloader />}
+      <CurrentUserContext.Provider value={currentUser}>
+        <>
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Header isBlueTheme={true} isLoggedIn={isLoggedIn} />
+                <Main />
+                <Footer />
+              </>
+            }
+            />
+            <Route path="/movies" element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Header isLoggedIn={isLoggedIn} />
+                <Movies
+                  savedMoviesList={savedMoviesList}
+                  onSaveClick={handleSaveMovie}
+                  onDeleteClick={handleDeleteMovie} />
+                <Footer />
+              </ProtectedRoute>
+            }
+            />
+            <Route path="/saved-movies" element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Header isLoggedIn={isLoggedIn} />
+                <SavedMovies
+                  savedMoviesList={savedMoviesList}
+                  onDeleteClick={handleDeleteMovie} />
+                <Footer />
+              </ProtectedRoute>
+            }
+            />
+            <Route path="/profile" element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Header isLoggedIn={isLoggedIn} />
+                <Profile
+                  onUpdateUser={handleEditProfile}
+                  onExitProfile={handleLogOut}
+                  apiError={apiError}
+                  setApiError={setApiError}
+                />
+              </ProtectedRoute>
+            }
+            />
+            <Route path="/signup" element={isLoggedIn ? <Navigate to="/movies" replace /> : <Register onRegister={handleRegister} errorMessage={apiError} />} />
+            <Route path="/signin" element={isLoggedIn ? <Navigate to="/movies" replace /> : <Login onLogin={handleLogin} errorMessage={apiError} />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </>
+      </CurrentUserContext.Provider>
     </>
   );
 }

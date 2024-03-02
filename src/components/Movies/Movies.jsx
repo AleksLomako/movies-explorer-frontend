@@ -8,7 +8,7 @@ import SearchError from "../SearchError/SearchError";
 import Preloader from './../Preloader/Preloader';
 
 
-function Movies({savedMoviesList, onSaveClick, onDeleteClick, isLoading, setIsLoading }) {
+function Movies({ savedMoviesList, onSaveClick, onDeleteClick }) {
 
     const [allMovies, setAllMovies] = useState([]); // все фильмы на сервере
     const [filtredShortMovies, setFiltredShortMovies] = useState([]); //фильмы по запросу, отфильтрованные чекбоксом
@@ -17,8 +17,7 @@ function Movies({savedMoviesList, onSaveClick, onDeleteClick, isLoading, setIsLo
     const [errors, setErrors] = useState(''); // отображение ошибок
     const inputMovie = localStorage.getItem('inputMovie');
     const checkboxState = localStorage.getItem('checkboxState');
-    // const [loading, setLoading] = useState(false);
-    // const [isLoaderOn, setIsLoaderOn] = useState(false);
+    const [preloader, setPreloader] = useState(false);
 
 
     // Проверка состояния чекбокса в хранилище
@@ -41,7 +40,6 @@ function Movies({savedMoviesList, onSaveClick, onDeleteClick, isLoading, setIsLo
 
     // Создание отфильтрованного списка фильмов
     function handleMoviesList(moviesList, inputMovie, checkboxState) {
-        // setIsLoaderOn(true);
         let movies = filterMovies(moviesList, inputMovie, checkboxState)
         if (checkboxState === true) {
             movies = filterShortMovies(movies)
@@ -54,7 +52,6 @@ function Movies({savedMoviesList, onSaveClick, onDeleteClick, isLoading, setIsLo
         }
         setFiltredShortMovies(movies);
         localStorage.setItem('moviesList', JSON.stringify(moviesList));
-        // setLoading(true)
     }
 
 
@@ -63,7 +60,7 @@ function Movies({savedMoviesList, onSaveClick, onDeleteClick, isLoading, setIsLo
         localStorage.setItem('checkboxState', checkedShortMovies)
         localStorage.setItem('inputMovie', inputMovie)
         if (allMovies.length === 0) {
-            // setIsLoaderOn(true);
+            setPreloader(true)
             moviesApi.getMovies()
                 .then(moviesList => {
                     setAllMovies(moviesList);
@@ -74,8 +71,7 @@ function Movies({savedMoviesList, onSaveClick, onDeleteClick, isLoading, setIsLo
                     setErrors('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
                 })
                 .finally(() => {
-                    // setIsLoaderOn(false)
-                    // setLoading(true)
+                    setPreloader(false);
                 });
         }
         else {
@@ -91,28 +87,24 @@ function Movies({savedMoviesList, onSaveClick, onDeleteClick, isLoading, setIsLo
 
     return (
         <>
-            {/* {!loading ? (
-                <Preloader isOpen={isLoaderOn} />
-            ) : ( */}
-                <main className="movies">
-                    <SearchForm
-                        handleSearchSubmit={handleSearchSubmit}
-                        onChange={handleChangeCheckbox}
-
-                        checkedShortMovies={checkedShortMovies}
-                        errorMessage={errors}
-                    />
-                    {!notFoundMovies ? (
-                        <MoviesCardList
-                            moviesList={filtredShortMovies}
-                            savedMoviesList={savedMoviesList}
-                            onSaveClick={onSaveClick}
-                            onDeleteClick={onDeleteClick} />
-                    ) : (<SearchError
-                        errorText={'Ничего не найдено'} />)
-                    }
-                </main>
-            {/* )} */}
+            <main className="movies">
+                <SearchForm
+                    handleSearchSubmit={handleSearchSubmit}
+                    onChange={handleChangeCheckbox}
+                    checkedShortMovies={checkedShortMovies}
+                    errorMessage={errors}
+                />
+                {preloader && <Preloader />}
+                {!notFoundMovies ? (
+                    <MoviesCardList
+                        moviesList={filtredShortMovies}
+                        savedMoviesList={savedMoviesList}
+                        onSaveClick={onSaveClick}
+                        onDeleteClick={onDeleteClick} />
+                ) : (<SearchError
+                    errorText={'Ничего не найдено'} />)
+                }
+            </main>
         </>
 
     );

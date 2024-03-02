@@ -32,7 +32,7 @@ function SearchForm({ handleSearchSubmit, onChange, checkedShortMovies, errorMes
     }
 
     function verifyInputField(checkboxState) {
-        if (location.pathname === '/movies' && searchMovie.trim().length === 0) {
+        if (searchMovie.trim().length === 0) {
             setErrors('Нужно ввести ключевое слово');
         }
         else {
