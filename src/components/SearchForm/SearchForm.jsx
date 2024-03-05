@@ -5,11 +5,11 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import SearchIcon from '../../images/search-icon.svg';
 import SearchFind from '../../images/search-find.svg';
 
-function SearchForm({ handleSearchSubmit, onChange, checkedShortMovies, errorMessage}) {
+function SearchForm({ handleSearchSubmit, onChange, checkedShortMovies, errorMessage }) {
 
     const location = useLocation();
     const [searchMovie, setSearchMovie] = useState('');
-    const [errors, setErrors] = useState(''); 
+    const [errors, setErrors] = useState('');
 
     function handleChangeInputs(e) {
         setSearchMovie(e.target.value);
@@ -21,14 +21,19 @@ function SearchForm({ handleSearchSubmit, onChange, checkedShortMovies, errorMes
     }
 
     function searchСheckbox() {
-        let checkboxState = "";
-        if (localStorage.getItem('checkboxState') === 'true') {
-            checkboxState = false;
+        if (location.pathname !== '/saved-movies') {
+            let checkboxState = "";
+            if (localStorage.getItem('checkboxState') === 'true') {
+                checkboxState = false;
+            }
+            else {
+                checkboxState = true;
+            }
+            verifyInputField(checkboxState)
         }
         else {
-            checkboxState = true;
+            verifyInputField(!checkedShortMovies);
         }
-        verifyInputField(checkboxState)
     }
 
     function verifyInputField(checkboxState) {

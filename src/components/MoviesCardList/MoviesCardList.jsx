@@ -12,11 +12,12 @@ function MoviesCardList({ moviesList, savedMoviesList, onSaveClick, onDeleteClic
 
     function showCount() {
         const width = window.innerWidth;
-        if (width > 1180) {
+        if (width > 1136) {
             setCountMovies(12);
-        } else if (width > 800) {
+        } else if (width > 635) {
             setCountMovies(8);
-        } else if (width < 800) {
+        }
+        else {
             setCountMovies(5);
         }
     }
@@ -35,13 +36,13 @@ function MoviesCardList({ moviesList, savedMoviesList, onSaveClick, onDeleteClic
 
     function showMore() {
         const width = window.innerWidth;
-        if (width > 1180) {
+        if (width > 1136) {
             setCountMovies(countMovies + 3);
         }
-        else if (width > 800) {
+        else if (width > 635) {
             setCountMovies(countMovies + 2);
         }
-        else if (width < 630) {
+        else {
             setCountMovies(countMovies + 2);
         }
     }

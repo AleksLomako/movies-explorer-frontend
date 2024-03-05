@@ -92,6 +92,7 @@ function Movies({ savedMoviesList, onSaveClick, onDeleteClick }) {
                     handleSearchSubmit={handleSearchSubmit}
                     onChange={handleChangeCheckbox}
                     checkedShortMovies={checkedShortMovies}
+                    setCheckedShortMovies={setCheckedShortMovies}
                     errorMessage={errors}
                 />
                 {preloader && <Preloader />}

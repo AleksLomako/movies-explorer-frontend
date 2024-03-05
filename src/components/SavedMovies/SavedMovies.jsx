@@ -18,8 +18,8 @@ function SavedMovies({ savedMoviesList, onDeleteClick }) {
 
     
     function handleSearchSubmit(inputMovie, checkboxState){
-        localStorage.setItem('inputMovie', inputMovie)
         let savedMovies = filterMovies(savedMoviesList, inputMovie);
+        
         if (checkboxState !== true){
             setSearchedMovies(savedMovies)
         }
@@ -38,7 +38,6 @@ function SavedMovies({ savedMoviesList, onDeleteClick }) {
     // изменение состояния чекбокса для короткометражек
     function handleChangeCheckbox() {
         setCheckedShortMovies(!checkedShortMovies);
-        localStorage.setItem('checkboxState', !checkedShortMovies)
     }
 
     return (
